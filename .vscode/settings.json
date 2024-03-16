@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "fstream": "c",
+        "iosfwd": "c",
+        "istream": "c",
+        "limits": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "logfile_manager.h": "c",
+        "protocol.h": "c",
+        "server.h": "c",
+        "multiplex.h": "c"
+    }
+}
