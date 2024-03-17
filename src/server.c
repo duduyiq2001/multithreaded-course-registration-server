@@ -167,18 +167,17 @@ int main(int argc, char *argv[])
     // initialize sig int flag
     sigint_flag = 0;
     // install handler
-    sigset_t new_mask, old_mask;
+    // Prepare the signal set
+    sigset_t set;
+    sigfillset(&set);        // Initialize set to full, including all signals
+    sigdelset(&set, SIGINT); // Remove SIGINT from the set, allowing it to be delivered
 
-    // Initialize a signal set with SIGUSR1
-    sigemptyset(&new_mask);
-
-    // Block NOTHING
-    sigprocmask(SIG_BLOCK, &new_mask, &old_mask);
-
-    // Do some operations with SIGUSR1 blocked
-
-    // Unblock NOTHING
-    sigprocmask(SIG_SETMASK, &old_mask, NULL);
+    // Block all signals except SIGINT
+    if (sigprocmask(SIG_SETMASK, &set, NULL) < 0)
+    {
+        fprintf(stderr, "set mask eror");
+        return 1;
+    }
     install_handler();
     // signal(SIGINT, sigint_handler);
 

@@ -370,7 +370,8 @@ int drop_user(user_t *user, int course_index)
 
 /**
  * @brief remove a user from course
- *
+ * course index lock
+ * user write lock
  * @param course_index
  * @param enrollment integer specifying enroll or waitlist
  */
@@ -388,5 +389,11 @@ user_t *rm_user_with_lock(int course_index)
     }
     // release lock
     pthread_mutex_unlock(&course_access[course_index]);
+
+    // grab user lock
+    pthread_mutex_lock(&userlist_access);
+    rm_update_wait(user, course_index);
+    // grab user lock
+    pthread_mutex_unlock(&userlist_access);
     return user;
 }

@@ -1,10 +1,12 @@
 CONNECTED dean
-dean ENROLL 0 1
-dean NOWAIT 0
-dean LOGOUT
+REJECT dean
 CONNECTED jenny
-jenny WAIT 0 1
-jenny LOGOUT
-RECONNECTED dean
-dean DROP 0 0
+jenny ENROLL 0 1
+dean NOENROLL 0
+jenny ENROLL 2 5
+dean WAIT 0 1
+jenny ENROLL 1 7
+jenny DROP 0 6
+dean WAITADD 0 1
 dean LOGOUT
+jenny LOGOUT
