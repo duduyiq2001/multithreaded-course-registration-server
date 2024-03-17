@@ -1,5 +1,3 @@
-Let's Eat! French, 2, 0, , 
-Typing, 10, 0, , 
-Guitar I, 15, 0, , 
-petr, 0, 0
-1 1 0 1
+dean, 0, 0
+jenny, 1, 1
+3, 3, 2, 1

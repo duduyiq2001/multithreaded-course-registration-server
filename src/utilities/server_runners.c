@@ -56,8 +56,7 @@ int server_init(int server_port)
         printf("socket creation failed...\n");
         exit(EXIT_FAILURE);
     }
-    else
-        printf("Socket successfully created\n");
+    // printf("Socket successfully created\n");
 
     bzero(&servaddr, sizeof(servaddr));
 
@@ -80,8 +79,8 @@ int server_init(int server_port)
         printf("socket bind failed\n");
         exit(EXIT_FAILURE);
     }
-    else
-        printf("Socket successfully binded\n");
+    // else
+    //     printf("Socket successfully binded\n");
 
     // Now server is ready to listen and verification
     if ((listen(sockfd, 1)) != 0)
@@ -89,8 +88,8 @@ int server_init(int server_port)
         printf("Listen failed\n");
         exit(EXIT_FAILURE);
     }
-    else
-        printf("Server listening on port: %d.. Waiting for connection\n", server_port);
+    // else
+    //     printf("Server listening on port: %d.. Waiting for connection\n", server_port);
 
     return sockfd;
 }
@@ -188,8 +187,6 @@ void *process_client(void *user)
         // check if user logs out
         if (iflogout)
         {
-            // then detach
-            pthread_detach(pthread_self());
             return NULL;
         }
     }
@@ -220,32 +217,6 @@ void run_server(int server_port)
 
     while (1)
     {
-        //         // check conditional flag for exiting
-        //         if (sigint_flag)
-        //         {
-        //             // wait for all threads to terminate
-        //             wait_threads();
-        //             // close connection
-        //             close(listen_fd);
-        //             // PRINT AND EXIT
-        //             course_print();
-        //             userlist_print();
-        //             print_stats();
-        //             fflush(stderr);
-        // #ifdef DEBUG
-        //             fprintf(stderr, "print finished");
-        // #endif
-        //             // free all resources
-        //             DeleteList(&userList);
-        //             for (int i = 0; i < num_of_courses; i++)
-        //             {
-        //                 DeleteList(&(courseArray[i].enrollment));
-        //                 DeleteList(&(courseArray[i].waitlist));
-        //             }
-        //             return;
-        //         }
-        // Wait and Accept the connection from client
-        printf("Wait for new client connection\n");
         int *client_fd = malloc(sizeof(int));
         *client_fd = accept(listen_fd, (SA *)&client_addr, &client_addr_len);
         // check conditional flag for exiting
@@ -255,6 +226,7 @@ void run_server(int server_port)
             wait_threads();
             // close connection
             close(listen_fd);
+            fclose(logFile);
             // PRINT AND EXIT
             course_print();
             userlist_print();
@@ -268,6 +240,7 @@ void run_server(int server_port)
 
             for (int i = 0; i < num_of_courses; i++)
             {
+                free(courseArray[i].title);
                 DeleteList1(&(courseArray[i].enrollment));
 
                 DeleteList1(&(courseArray[i].waitlist));
@@ -281,8 +254,11 @@ void run_server(int server_port)
         }
         else
         {
+#ifdef DEBUG
+
             printf("Client connetion accepted\n");
-            // update client count
+#endif
+            //  update client count
             update_stats("client", 1);
             /**
              * @brief authenticate client
@@ -301,5 +277,6 @@ void run_server(int server_port)
         }
     }
     close(listen_fd);
+    fclose(logFile);
     return;
 }

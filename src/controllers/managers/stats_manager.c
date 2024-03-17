@@ -18,7 +18,7 @@ void update_stats(char *type, int amount)
     {
         curStats.totalAdds += amount;
     }
-    if (strcmp(type, "client") == 0)
+    if (strcmp(type, "drops") == 0)
     {
         curStats.totalDrops += amount;
     }
@@ -35,5 +35,5 @@ void print_stats()
 #ifdef DEBUG
     fprintf(stderr, "enter stats");
 #endif
-    fprintf(stderr, "%d %d %d %d\n", curStats.clientCnt, curStats.threadCnt, curStats.totalAdds, curStats.totalDrops);
+    fprintf(stderr, "%d, %d, %d, %d\n", curStats.clientCnt, curStats.threadCnt, curStats.totalAdds, curStats.totalDrops);
 }

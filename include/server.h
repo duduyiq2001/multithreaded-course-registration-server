@@ -23,7 +23,13 @@
                   "\n  PORT_NUMBER        Port number to listen on."                                       \
                   "\n  COURSE_FILENAME    File to read course information from at the start of the server" \
                   "\n  LOG_FILENAME       File to output server actions into. Create/overwrite, if exists\n"
-
+#define SEMICOLON 0
+#define ARROW 1
+#define POSITIVE 1
+#define NEGATIVE 0
+#define NOTFOUND 2
+#define ENROLLMENT_LIST 1
+#define WAITLIST_LIST 0
 typedef struct
 {
     int clientCnt;

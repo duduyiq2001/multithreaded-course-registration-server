@@ -18,7 +18,7 @@ enum msg_types
     EUSRLGDIN = 0xF0,
     ECDENIED,
     ECNOTFOUND,
-    ECNOCOURSES,
+    ENOCOURSES,
     ESERV = 0xFF
 };
 

@@ -98,13 +98,13 @@ user_t *authenticate(void *clientfd_ptr, char **username)
  */
 void logout(user_t *user)
 {
-    // respond ok
+    // // respond ok after detach
     send_message(user->socket_fd, OK, "");
     // setting user
     user->socket_fd = -1;
     user->tid = -1;
     // writing to log
-    write_log(logFile, user->username, "LOGOUT");
+    write_log(logFile, "LOGOUT", user->username);
 
     return;
 }

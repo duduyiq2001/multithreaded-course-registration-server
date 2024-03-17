@@ -1,1 +1,10 @@
-CONNECTED petr
+CONNECTED dean
+dean ENROLL 0 1
+dean NOWAIT 0
+dean LOGOUT
+CONNECTED jenny
+jenny WAIT 0 1
+jenny LOGOUT
+RECONNECTED dean
+dean DROP 0 0
+dean LOGOUT

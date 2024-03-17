@@ -47,4 +47,15 @@ user_t *login_user(char *username, int socketfd);
  */
 void userlist_print();
 
+/**
+ * @brief build study list strings
+ * allocate string inside
+ * need free outside
+ * user reader lock required
+ * malloc 1
+ * @param user
+ * @return char*
+ */
+char *GetStudyList(user_t *user);
+
 #endif

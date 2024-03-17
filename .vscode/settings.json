@@ -10,6 +10,8 @@
         "logfile_manager.h": "c",
         "protocol.h": "c",
         "server.h": "c",
-        "multiplex.h": "c"
+        "multiplex.h": "c",
+        "clist.h": "c",
+        "stats_manager.h": "c"
     }
 }

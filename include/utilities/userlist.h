@@ -31,7 +31,7 @@ void userDeleter(void *user);
  *
  * @param degree
  */
-int twotopower(int degree);
+uint32_t twotopower(int degree);
 /**
  * @brief update bit vector for enroll
  *
@@ -43,8 +43,44 @@ void update_enroll(user_t *user, int course_index);
  * @brief printer for userlist in course
  *
  * @param courseindex which course
+ *
  * @param type enroll/ waitlist
+ * @param delimiter SEMICOLON/ARROW
  */
-void userPrinter1(int courseindex, char *type);
+void userPrinter1(int courseindex, char *type, int delimiter);
+/**
+ * @brief update bit vector for waitlist
+ *
+ * @param user
+ */
+void update_wait(user_t *user, int course_index);
+/**
+ * @brief printer for userlist in course
+ *
+ * @param courseindex which course
+ *
+ * @param type enroll/ waitlist
+ * @param delimiter SEMICOLON/ARROW
+ * @param output string to output to, need to alloc before
+ */
+void SuserPrinter1(int courseindex, char *type, int delimiter, char *output);
+
+/**
+ * @brief update user enrollment
+ * removing that class from user
+ *
+ * @param user
+ * @param course_index
+ */
+void rm_update_enroll(user_t *user, int course_index);
+
+/**
+ * @brief update user waitlist
+ * removing that class from user
+ *
+ * @param user
+ * @param course_index
+ */
+void rm_update_wait(user_t *user, int course_index);
 
 #endif

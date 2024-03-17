@@ -44,7 +44,6 @@ void sigint_handler(int sig)
 
     int olderrno = errno;
     sigint_flag = 1;
-    write(STDOUT_FILENO, "abc\n", 4);
     errno = olderrno;
 }
 void install_handler()
@@ -57,7 +56,6 @@ void install_handler()
     {
         printf("signal handler failed to install\n");
     }
-    printf("install success");
 }
 int main(int argc, char *argv[])
 {
@@ -142,6 +140,7 @@ int main(int argc, char *argv[])
      *
      */
     num_of_courses = course_parser(courseArray, pollFile);
+    fclose(pollFile);
     // if error then we exit
     if (num_of_courses == -1)
     {
@@ -184,8 +183,8 @@ int main(int argc, char *argv[])
     // signal(SIGINT, sigint_handler);
 
     // declare server initialized
-    printf("Server initialized with %d courses.", num_of_courses);
-    printf("Currently listening on port %d.", port_number);
+    printf("Server initialized with %d courses.\n", num_of_courses);
+    printf("Currently listening on port %d.\n", port_number);
 
     /**
      * @brief starting runner server

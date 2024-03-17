@@ -1,4 +1,5 @@
 #include "controllers/managers/userlist_manager.h"
+#include "utilities/userlist.h"
 
 /**
  * @brief find a user from the userlist
@@ -185,4 +186,85 @@ user_t *login_user(char *username, int socketfd)
 void userlist_print()
 {
     PrintLinkedList(&userList, stderr);
+}
+
+/**
+ * @brief build study list strings
+ * allocate string inside
+ * need free outside
+ * user reader lock required
+ * malloc 1
+ * return NULL if no enroll
+ * @param user
+ * @return char*
+ */
+char *GetStudyList(user_t *user)
+{
+    char *response = (char *)malloc(sizeof(char) * BUFFER_SIZE * 3);
+    // initialize with empty
+    response[0] = '\0';
+    for (int i = 0; i < num_of_courses; i++)
+    {
+        char buffer[BUFFER_SIZE];
+        /**
+         * @brief grab reader lock
+         *
+         */
+        // Reader wants to enter
+        pthread_mutex_lock(&userlist_readcount_access);
+        // increment reader count
+        userlist_readers++;
+        // if it's the first reader
+        if (userlist_readers == 1)
+        {
+            pthread_mutex_lock(&userlist_access); // First reader locks the resource
+        }
+        // release count lock
+        pthread_mutex_unlock(&userlist_readcount_access);
+        /**
+         *
+         *
+         */
+        if ((user->enrolled & twotopower(i)) != 0)
+        {
+            sprintf(buffer, "Course %d - %s\n", i, courseArray[i].title);
+            // add to response
+            strcat(response, buffer);
+        }
+        if ((user->waitlisted & twotopower(i)) != 0)
+        {
+            sprintf(buffer, "Course %d - %s (WAITING)\n", i, courseArray[i].title);
+            strcat(response, buffer);
+        }
+        /**
+         * @brief releasing reader lock
+         *
+         */
+        // reading ends
+        // update read count or unlock resource
+        pthread_mutex_lock(&userlist_readcount_access);
+        // decrement users
+        userlist_readers--;
+        if (userlist_readers == 0)
+        {
+            pthread_mutex_unlock(&userlist_access); // Last reader unlocks the resource
+        }
+        pthread_mutex_unlock(&userlist_readcount_access);
+        /**
+         *
+         *
+         */
+    }
+    // if not enrolled or waited in any
+    if (strcmp(response, "") == 0)
+    {
+        free(response);
+        return NULL;
+    }
+    // cpy to actual return string
+    char *res = (char *)malloc(sizeof(char) * strlen(response) + sizeof(char));
+    strcpy(res, response);
+    // get rid of the response buffer
+    free(response);
+    return res;
 }
