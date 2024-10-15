@@ -1,3 +1,8 @@
+
+## course registration server:
+    a simple server in C that manages and stores course registeration information. Users can interact with the server by login, add, drop, waitlist, and get the\
+    current list of classes. The server is further optimized for multithreading so multiple users can have sessions at the same time. 
+
 ### I structured my code slightly differently from other people. I sort of followed a structure of a typical web project, here is the directory structure:
 
 include <br/>
