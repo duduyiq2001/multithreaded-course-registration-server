@@ -1,11 +1,11 @@
 
-## course registration server:
-    a simple server in C that manages and stores course registeration information. \
-    Users can interact with the server by login, add, drop, waitlist, and get the\
-    current list of classes. The server is further optimized for multithreading \
-    so multiple users can have sessions at the same time. 
+## Course Registration Server
 
-### I structured my code slightly differently from other people. I sort of followed a structure of a typical web project, here is the directory structure:
+A simple server written in C that manages and stores course registration information. Users can interact with the server by performing operations such as logging in, adding or dropping courses, waitlisting, and retrieving the current list of classes. The server is optimized for multithreading, allowing multiple users to maintain sessions simultaneously.
+
+### Directory Structure
+
+I structured my code slightly differently from others, following a structure typical of a web project. Here's the directory layout:
 
 include <br/>
 ├── auth <br/>
@@ -39,6 +39,8 @@ include <br/>
     └── userlist.h <br/>
 
 
-* The server runner processes the user's request, validate it and pass it to the router
-* the router routes request to controllers, which is like the endpoints 
-* under controllers there's managers, I use this to represent database layer operations (in this case it's an in memory database). Therefore naturally, ALL THE LOCKS ARE IMPLEMENTED AT THIS LEVEL
+### Server Functionality
+
+-   The server runner processes user requests, validates them, and passes them to the router.
+-   The router directs requests to the appropriate controllers, which serve as the endpoints.
+-   Controllers contain managers, representing database operations (an in-memory database in this case). **All locks are implemented at this level** to handle concurrency control effectively.
