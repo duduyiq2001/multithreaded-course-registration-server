@@ -32,6 +32,6 @@ include <br/>
     └── userlist.h <br/>
 
 
-### *The server runner processes the user's request, validate it and pass it to the router 
-### *the router routes request to controllers, which is like the endpoints 
-### *under controllers there's managers, I use this to represent database layer operations (in this case it's an in memory database). Therefore naturally, ALL THE LOCKS ARE IMPLEMENTED AT THIS LEVEL
+* The server runner processes the user's request, validate it and pass it to the router
+* the router routes request to controllers, which is like the endpoints 
+* under controllers there's managers, I use this to represent database layer operations (in this case it's an in memory database). Therefore naturally, ALL THE LOCKS ARE IMPLEMENTED AT THIS LEVEL
